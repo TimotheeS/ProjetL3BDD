@@ -383,9 +383,9 @@ function createEvent (){
         } else {
             $return = '<p style="color:red;"> Veuillez remplir tous les champs. </p>';
         }
-    }
 
-    return $return;
+        return $return;
+    }
 }
 
 function list_event() {
