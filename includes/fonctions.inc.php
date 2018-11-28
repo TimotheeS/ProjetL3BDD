@@ -3,6 +3,7 @@
 /*-----------------------------------------------------USER-----------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------*/
 
+//Fonction d'affichage du formulaire de choix d'inscription/connexion pour compte utilisateur et organisateur
 function accountChoiceForm() {
     $return = null;
     $return = '<form action="#" method="POST">';
@@ -31,6 +32,7 @@ function accountChoiceForm() {
     return $return;
 }
 
+//Fonction de redirection en fonction de l'action inscription/connexion et du profil séléctionné utilisateur et organisateur
 function accountChoice() {
     if(isset($_POST['account_next'])) {
         if(isset($_POST['account_choice'])) {
@@ -53,6 +55,9 @@ function accountChoice() {
     }
 }
 
+/*--------------------------------------------------------------------------------------------------------------*/
+
+//Fonction d'affichage d'un formulaire de création de compte pour utilisateur et organisateur
 function createAccountForm() {
     $account_role = $_GET['account'];
     $return = '<form action="#" method="POST">';
@@ -96,6 +101,7 @@ function createAccountForm() {
     return $return;
 }
 
+//Fonction de création de compte pour utilisateur et organisateur
 function createAccount() {
     $account_role = $_GET['account'];
     $return = null;
@@ -134,7 +140,7 @@ function createAccount() {
                 $return = 'Veuillez remplir les champs requis.';
             }
         }
-        //Création d'un compte association
+        //Création d'un compte organisateur
         if($account_role == 2) {
             $org_name = $_POST['org_name'];
             $org_description = $_POST['org_description'];
@@ -165,6 +171,9 @@ function createAccount() {
     return $return;
 }
 
+/*--------------------------------------------------------------------------------------------------------------*/
+
+//Fonction d'affichage d'un formulaire de connexion pour utilisateur et organisateur
 function connectAccountForm() {
     $user_role = $_GET['account'];
     $return = '<form action="#" method="POST">';
@@ -185,6 +194,7 @@ function connectAccountForm() {
     return $return;
 }
 
+//Fonction de connexion pour utilisateur OU organisateur
 function connectAccount() {
     $account_role = $_GET['account'];
     $return = null;
@@ -243,6 +253,9 @@ function connectAccount() {
     return $return;
 }
 
+/*--------------------------------------------------------------------------------------------------------------*/
+
+//Fonction d'affichage des informations de connexion pour utilisateur et organisateur
 function sessionInformation() {
     $return = '<table>';
     $return .= '<tr>';
@@ -289,6 +302,7 @@ function sessionInformation() {
 /*----------------------------------------------------EVENT-----------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------*/
 
+//Fonction d'affichage d'un formulaire pour la création d'évènements
 function createEventForm() {
     $return = '<form action="#" method="post">';
     $return .= '<table>';
@@ -353,11 +367,11 @@ function createEventForm() {
     $return .= '<td colspan=4> <input type="submit" style="width: 80px;" name="submit" value="Créer">';
     $return .= '</table>';
     $return .= '</form>';
-
     return $return;
 }
 
-function createEvent (){
+//Fonction de création d'évènements
+function createEvent() {
     if(isset($_POST['submit'])){
         $nomEvent = $_POST['nomEvent'];
         $description = $_POST['descriptionEvent'];
@@ -370,7 +384,7 @@ function createEvent (){
         $codePostal = $_POST['codePostal'];
         $ville = $_POST['villeEvent'];
 
-        $return = "";
+        $return = null;
 
         if ($nomEvent != "" AND $description != "" AND $categorie != "" AND isset($date) AND $adresse != "" AND $codePostal != NULL AND $ville != "") {
             $query = "INSERT INTO event(name, description, type, event_date, hour, minute, nb_Interested, nb_Participation, nb_People, finished, organizer_id) VALUES ('$nomEvent', '$description', '$categorie', '$date', '$heure', '$minute', 0, 0, 0,false, 1)";
@@ -383,11 +397,19 @@ function createEvent (){
         } else {
             $return = '<p style="color:red;"> Veuillez remplir tous les champs. </p>';
         }
+<<<<<<< HEAD
 
         return $return;
     }
+=======
+    }
+    return $return;
+>>>>>>> ed13a1e08504cbd4aac4d215d3428456a6fe5288
 }
 
+/*--------------------------------------------------------------------------------------------------------------*/
+
+//Fonction d'affichage des évèenements à venir
 function list_event() {
     $query = 'SELECT name,type,event_date,org_name,event_id FROM event INNER JOIN organizer ON organizer_id = org_id WHERE finished = false';
     $results = pg_query($query);
@@ -442,6 +464,7 @@ function list_event() {
     return $return;
 }
 
+//Fonction d'affichage des détails d'un évènements
 function details_event() {
     $event_id = $_GET['event_id'];
     $query = 'SELECT * FROM event INNER JOIN organizer ON event.organizer_id = organizer.org_id INNER JOIN location ON event.location_id = location.location_id WHERE event_id = ' .$event_id;
@@ -490,6 +513,7 @@ function details_event() {
 /*----------------------------------------------------OTHER-----------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------*/
 
+//Fonction de calul de l'id max parmis les résultats d'une requête
 function max_id($query) {
     $max_id = 0;
     $results = pg_query($query);
@@ -505,6 +529,7 @@ function max_id($query) {
     }
 }
 
+//Fonction d'affichage d'un bouton de retour vers l'index
 function displayBackBtn(){
     $return = '<form action="../index.php" method="POST" >';
     $return .= '<input type="submit" name="back_page" value="Retour">';
