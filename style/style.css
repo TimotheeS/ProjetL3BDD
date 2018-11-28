@@ -1,0 +1,67 @@
+* {
+	margin: 0;
+	font-family: "Century Gothic",CenturyGothic,AppleGothic,sans-serif;
+}
+
+#title {
+	width: 75%;
+	line-height: 100px;
+	font-size: 30pt;
+	color: black;
+	border-bottom: 1px solid black;
+	text-align: center;
+	font-weight: bold;
+	margin:0 12.5% 40px 12.5%;
+}
+
+.header {
+	width: 100%;
+}
+
+.bouton {
+	width: 100px;
+	height: 30px;
+}
+
+.texte {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width: 100px;
+	height: 30px;
+}
+
+h2 {
+	text-align: center;
+	margin-top : 30px;
+}
+
+table {
+	margin: auto;
+	margin-top: 30px;
+}
+
+th, td {
+	font-size: 15pt;
+	padding: 10px;
+	border:none;
+	text-align: center;
+}
+
+th {
+	font-size: 15pt;
+	border-bottom: 1px solid black;
+}
+
+.table {
+	width: 60%;
+	margin-top: 30px;
+}
+
+.titreTable{
+	border:1px solid black;
+	background-color: #99e6ff;
+}
+
+td {
+	min-width: 100px;
+}
