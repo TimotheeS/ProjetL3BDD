@@ -602,7 +602,7 @@ function createPlace() {
         $return = null;
 
         if ($nomRue != "" AND $num != "" AND $ville != "" AND $codePostal != NULL AND $nomLieu != "") {
-            $query = "INSERT INTO location(location_id, location_nb, location_street, location_city, location_postalcode, location_complement, location_name) VALUES ('1', '$num', '$nomRue', '$ville', '$codePostal', $complement, $nomLieu)";
+            $query = "INSERT INTO location(location_nb, location_street, location_city, location_postalcode, location_complement, location_name) VALUES ('$num', '$nomRue', '$ville', '$codePostal', $complement, $nomLieu)";
             $res = pg_query($query);
             if ($res) {
                 $return = "Lieu correctement créé.";
