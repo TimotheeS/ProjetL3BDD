@@ -1,4 +1,57 @@
 <?php
+/*----------------------------------------------------COMMENT---------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------*/
+
+// Fonction qui affiche tous les commentaires d'un évènement
+// Appel : echo load_comments(variable à récupérer de la page $event_id);
+function load_comments($event_id)
+{
+    $query = "SELECT user_id, content, comment_date, comment_hour FROM commentary WHERE event_id = '$event_id' ORDER BY commentary_id DESC;";
+    $resultat = pg_query($query);
+    $comments = '';
+    while($row = pg_fetch_row($resultat))
+    {
+        $query_user = '';
+        $query_user .= "SELECT user_name, user_forename, user_gender, user_age FROM public.user WHERE user_id = '$row[0]'";
+        $usernames = pg_query($query_user);
+        $username = pg_fetch_row($usernames);
+
+        $comments .= "<h3>$username[1] $username[0], $username[3] ans ($username[2]), le $row[2] à $row[3]</h3>";
+        $comments .= "<p class='commentaire'> $row[1] <p>";
+    }
+    return $comments;
+}
+
+// Fonction qui affiche le formulaire pour commenter un évenement
+// Appel : echo comment_form();
+function comment_form()
+{
+    return "<form action='index.php' method='post'><textarea value = '' name='Commentaire' placeholder='Ex : C\'était vraiment génial, J'y serai à 100%...' maxlength='256' rows='5' cols='50'></textarea><input type='submit' value='Commenter' name='BtnCommentaire'></form>"
+}
+
+// Fonction qui prend en paramètre la chaine de caractere du commentaire, l'id de l'evenement et l'id de l'utilisateur
+/* Appel :  if(isset($_POST['BtnCommentaire']) && $_POST['Commentaire'] != '')
+			{
+				create_comment($_POST['Commentaire'], variable à récuperer $event_id, variable à récupérer des infos de connection $user_id);
+				header("Refresh:0.1");
+			}	
+*/
+function create_comment($comment, $event_id, $user_id)
+{
+    date_default_timezone_set('Europe/Paris');
+    $comment_id = 0;
+    $comment_date = ''.date("d").'/'.date("m").'/'.date("Y");
+    $comment_hour = ''.date("H").'h'.date("i");
+    $query_comment_id = 'SELECT commentary_id FROM commentary';
+    $comment_ids = pg_query($query_comment_id);
+    while($row = pg_fetch_row($comment_ids))
+    {
+        $comment_id = $row[0];
+    }
+    $comment_id += 1;
+    $query = "INSERT INTO commentary VALUES ('$comment_id', '$comment', '$event_id', '$user_id', '$comment_date', '$comment_hour');";
+    pg_query($query);
+}
 
 /*-----------------------------------------------------USER-----------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------*/
