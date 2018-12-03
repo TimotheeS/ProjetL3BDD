@@ -24,5 +24,6 @@ session_start();
 	<a href="pages/account_log_out.php"> Se déconnecter </a> <br/>
 	<a href="pages/events_list.php"> Liste des évènements </a> <br/>
 	<a href="pages/events_creation.php"> Créer un évènement </a> <br/>
+    <a href="pages/place_creation.php"> Créer un lieu </a> <br/>
 </body>
 </html>
